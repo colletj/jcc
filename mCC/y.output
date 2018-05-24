@@ -1,0 +1,2154 @@
+Terminals unused in grammar
+
+   INLINE
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: function
+
+    2 function: function inst
+    3         | %empty
+
+    4 inst: ';'
+    5     | exp ';'
+    6     | PRINT '(' STRING ',' exp ')' ';'
+    7     | PUTCH exp ';'
+    8     | WHILE '(' exp ')' inst
+    9     | IF '(' exp ')' inst
+   10     | IF '(' exp ')' inst ELSE inst
+   11     | '{' suite_inst '}'
+   12     | TYPE IDENTIFIER '(' decl_list ')' ';'
+   13     | TYPE IDENTIFIER '(' arg_list ')' '{' suite_inst RETURN inst '}'
+   14     | IDENTIFIER '(' arg_list ')' ';'
+   15     | IDENTIFIER '=' IDENTIFIER '(' arg_list ')' ';'
+
+   16 suite_inst: inst
+   17           | inst suite_inst
+
+   18 decl_list: TYPE
+   19          | TYPE ',' decl_list
+
+   20 arg_list: exp
+   21         | exp ',' arg_list
+
+   22 declaration: TYPE IDENTIFIER
+   23            | TYPE IDENTIFIER '=' exp
+
+   24 exp: INTEGER
+   25    | FLOAT
+   26    | IDENTIFIER
+   27    | declaration
+   28    | exp SHIFTOPERATOR exp
+   29    | exp LOGICALOPERATOR exp
+   30    | IDENTIFIER '=' exp
+   31    | IDENTIFIER COMPOUNDOPERATOR exp
+   32    | INCOPERATOR exp
+   33    | exp INCOPERATOR
+   34    | '-' exp
+   35    | '+' exp
+   36    | '!' exp
+   37    | '*' exp
+   38    | '&' exp
+   39    | '(' exp ')'
+   40    | exp IFT exp ':' exp
+   41    | exp '+' exp
+   42    | exp '-' exp
+   43    | exp '*' exp
+   44    | exp '/' exp
+   45    | exp '<' exp
+   46    | exp '>' exp
+   47    | exp '&' exp
+   48    | exp '|' exp
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'!' (33) 36
+'&' (38) 38 47
+'(' (40) 6 8 9 10 12 13 14 15 39
+')' (41) 6 8 9 10 12 13 14 15 39
+'*' (42) 37 43
+'+' (43) 35 41
+',' (44) 6 19 21
+'-' (45) 34 42
+'/' (47) 44
+':' (58) 40
+';' (59) 4 5 6 7 12 14 15
+'<' (60) 45
+'=' (61) 15 23 30
+'>' (62) 46
+'{' (123) 11 13
+'|' (124) 48
+'}' (125) 11 13
+error (256)
+INTEGER (258) 24
+FLOAT (259) 25
+IDENTIFIER (260) 12 13 14 15 22 23 26 30 31
+TYPE (261) 12 13 18 19 22 23
+STRING (262) 6
+COMPOUNDOPERATOR (263) 31
+SHIFTOPERATOR (264) 28
+LOGICALOPERATOR (265) 29
+INCOPERATOR (266) 32 33
+WHILE (267) 8
+PRINT (268) 6
+IF (269) 9 10
+IFT (270) 40
+ELSE (271) 10
+INLINE (272)
+RETURN (273) 13
+PUTCH (274) 7
+IFX (275)
+NEG (276)
+PTR (277)
+ADR (278)
+
+
+Nonterminals, with rules where they appear
+
+$accept (41)
+    on left: 0
+program (42)
+    on left: 1, on right: 0
+function (43)
+    on left: 2 3, on right: 1 2
+inst (44)
+    on left: 4 5 6 7 8 9 10 11 12 13 14 15, on right: 2 8 9 10 13 16
+    17
+suite_inst (45)
+    on left: 16 17, on right: 11 13 17
+decl_list (46)
+    on left: 18 19, on right: 12 19
+arg_list (47)
+    on left: 20 21, on right: 13 14 15 21
+declaration (48)
+    on left: 22 23, on right: 27
+exp (49)
+    on left: 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41
+    42 43 44 45 46 47 48, on right: 5 6 7 8 9 10 20 21 23 28 29 30
+    31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
+
+
+State 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 3 (function)
+
+    program   go to state 1
+    function  go to state 2
+
+
+State 1
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 program: function .
+    2 function: function . inst
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 6
+    TYPE         shift, and go to state 7
+    INCOPERATOR  shift, and go to state 8
+    WHILE        shift, and go to state 9
+    PRINT        shift, and go to state 10
+    IF           shift, and go to state 11
+    PUTCH        shift, and go to state 12
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    ';'          shift, and go to state 17
+    '('          shift, and go to state 18
+    '{'          shift, and go to state 19
+    '!'          shift, and go to state 20
+
+    $default  reduce using rule 1 (program)
+
+    inst         go to state 21
+    declaration  go to state 22
+    exp          go to state 23
+
+
+State 3
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 4
+
+   24 exp: INTEGER .
+
+    $default  reduce using rule 24 (exp)
+
+
+State 5
+
+   25 exp: FLOAT .
+
+    $default  reduce using rule 25 (exp)
+
+
+State 6
+
+   14 inst: IDENTIFIER . '(' arg_list ')' ';'
+   15     | IDENTIFIER . '=' IDENTIFIER '(' arg_list ')' ';'
+   26 exp: IDENTIFIER .
+   30    | IDENTIFIER . '=' exp
+   31    | IDENTIFIER . COMPOUNDOPERATOR exp
+
+    COMPOUNDOPERATOR  shift, and go to state 24
+    '='               shift, and go to state 25
+    '('               shift, and go to state 26
+
+    $default  reduce using rule 26 (exp)
+
+
+State 7
+
+   12 inst: TYPE . IDENTIFIER '(' decl_list ')' ';'
+   13     | TYPE . IDENTIFIER '(' arg_list ')' '{' suite_inst RETURN inst '}'
+   22 declaration: TYPE . IDENTIFIER
+   23            | TYPE . IDENTIFIER '=' exp
+
+    IDENTIFIER  shift, and go to state 27
+
+
+State 8
+
+   32 exp: INCOPERATOR . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 30
+
+
+State 9
+
+    8 inst: WHILE . '(' exp ')' inst
+
+    '('  shift, and go to state 31
+
+
+State 10
+
+    6 inst: PRINT . '(' STRING ',' exp ')' ';'
+
+    '('  shift, and go to state 32
+
+
+State 11
+
+    9 inst: IF . '(' exp ')' inst
+   10     | IF . '(' exp ')' inst ELSE inst
+
+    '('  shift, and go to state 33
+
+
+State 12
+
+    7 inst: PUTCH . exp ';'
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 34
+
+
+State 13
+
+   35 exp: '+' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 35
+
+
+State 14
+
+   34 exp: '-' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 36
+
+
+State 15
+
+   38 exp: '&' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 37
+
+
+State 16
+
+   37 exp: '*' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 38
+
+
+State 17
+
+    4 inst: ';' .
+
+    $default  reduce using rule 4 (inst)
+
+
+State 18
+
+   39 exp: '(' . exp ')'
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 39
+
+
+State 19
+
+   11 inst: '{' . suite_inst '}'
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 6
+    TYPE         shift, and go to state 7
+    INCOPERATOR  shift, and go to state 8
+    WHILE        shift, and go to state 9
+    PRINT        shift, and go to state 10
+    IF           shift, and go to state 11
+    PUTCH        shift, and go to state 12
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    ';'          shift, and go to state 17
+    '('          shift, and go to state 18
+    '{'          shift, and go to state 19
+    '!'          shift, and go to state 20
+
+    inst         go to state 40
+    suite_inst   go to state 41
+    declaration  go to state 22
+    exp          go to state 23
+
+
+State 20
+
+   36 exp: '!' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 42
+
+
+State 21
+
+    2 function: function inst .
+
+    $default  reduce using rule 2 (function)
+
+
+State 22
+
+   27 exp: declaration .
+
+    $default  reduce using rule 27 (exp)
+
+
+State 23
+
+    5 inst: exp . ';'
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+    ';'              shift, and go to state 55
+
+
+State 24
+
+   31 exp: IDENTIFIER COMPOUNDOPERATOR . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 56
+
+
+State 25
+
+   15 inst: IDENTIFIER '=' . IDENTIFIER '(' arg_list ')' ';'
+   30 exp: IDENTIFIER '=' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 57
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 58
+
+
+State 26
+
+   14 inst: IDENTIFIER '(' . arg_list ')' ';'
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    arg_list     go to state 59
+    declaration  go to state 22
+    exp          go to state 60
+
+
+State 27
+
+   12 inst: TYPE IDENTIFIER . '(' decl_list ')' ';'
+   13     | TYPE IDENTIFIER . '(' arg_list ')' '{' suite_inst RETURN inst '}'
+   22 declaration: TYPE IDENTIFIER .
+   23            | TYPE IDENTIFIER . '=' exp
+
+    '='  shift, and go to state 61
+    '('  shift, and go to state 62
+
+    $default  reduce using rule 22 (declaration)
+
+
+State 28
+
+   26 exp: IDENTIFIER .
+   30    | IDENTIFIER . '=' exp
+   31    | IDENTIFIER . COMPOUNDOPERATOR exp
+
+    COMPOUNDOPERATOR  shift, and go to state 24
+    '='               shift, and go to state 63
+
+    $default  reduce using rule 26 (exp)
+
+
+State 29
+
+   22 declaration: TYPE . IDENTIFIER
+   23            | TYPE . IDENTIFIER '=' exp
+
+    IDENTIFIER  shift, and go to state 64
+
+
+State 30
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   32    | INCOPERATOR exp .
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+
+    $default  reduce using rule 32 (exp)
+
+
+State 31
+
+    8 inst: WHILE '(' . exp ')' inst
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 65
+
+
+State 32
+
+    6 inst: PRINT '(' . STRING ',' exp ')' ';'
+
+    STRING  shift, and go to state 66
+
+
+State 33
+
+    9 inst: IF '(' . exp ')' inst
+   10     | IF '(' . exp ')' inst ELSE inst
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 67
+
+
+State 34
+
+    7 inst: PUTCH exp . ';'
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+    ';'              shift, and go to state 68
+
+
+State 35
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   35    | '+' exp .
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    $default  reduce using rule 35 (exp)
+
+
+State 36
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   34    | '-' exp .
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    $default  reduce using rule 34 (exp)
+
+
+State 37
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   38    | '&' exp .
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    $default  reduce using rule 38 (exp)
+
+
+State 38
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   37    | '*' exp .
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    $default  reduce using rule 37 (exp)
+
+
+State 39
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   39    | '(' exp . ')'
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+    ')'              shift, and go to state 69
+
+
+State 40
+
+   16 suite_inst: inst .
+   17           | inst . suite_inst
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 6
+    TYPE         shift, and go to state 7
+    INCOPERATOR  shift, and go to state 8
+    WHILE        shift, and go to state 9
+    PRINT        shift, and go to state 10
+    IF           shift, and go to state 11
+    PUTCH        shift, and go to state 12
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    ';'          shift, and go to state 17
+    '('          shift, and go to state 18
+    '{'          shift, and go to state 19
+    '!'          shift, and go to state 20
+
+    $default  reduce using rule 16 (suite_inst)
+
+    inst         go to state 40
+    suite_inst   go to state 70
+    declaration  go to state 22
+    exp          go to state 23
+
+
+State 41
+
+   11 inst: '{' suite_inst . '}'
+
+    '}'  shift, and go to state 71
+
+
+State 42
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   36    | '!' exp .
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+
+    $default  reduce using rule 36 (exp)
+
+
+State 43
+
+   28 exp: exp SHIFTOPERATOR . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 72
+
+
+State 44
+
+   29 exp: exp LOGICALOPERATOR . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 73
+
+
+State 45
+
+   33 exp: exp INCOPERATOR .
+
+    $default  reduce using rule 33 (exp)
+
+
+State 46
+
+   40 exp: exp IFT . exp ':' exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 74
+
+
+State 47
+
+   46 exp: exp '>' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 75
+
+
+State 48
+
+   45 exp: exp '<' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 76
+
+
+State 49
+
+   41 exp: exp '+' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 77
+
+
+State 50
+
+   42 exp: exp '-' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 78
+
+
+State 51
+
+   47 exp: exp '&' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 79
+
+
+State 52
+
+   48 exp: exp '|' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 80
+
+
+State 53
+
+   43 exp: exp '*' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 81
+
+
+State 54
+
+   44 exp: exp '/' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 82
+
+
+State 55
+
+    5 inst: exp ';' .
+
+    $default  reduce using rule 5 (inst)
+
+
+State 56
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   31    | IDENTIFIER COMPOUNDOPERATOR exp .
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+
+    $default  reduce using rule 31 (exp)
+
+
+State 57
+
+   15 inst: IDENTIFIER '=' IDENTIFIER . '(' arg_list ')' ';'
+   26 exp: IDENTIFIER .
+   30    | IDENTIFIER . '=' exp
+   31    | IDENTIFIER . COMPOUNDOPERATOR exp
+
+    COMPOUNDOPERATOR  shift, and go to state 24
+    '='               shift, and go to state 63
+    '('               shift, and go to state 83
+
+    $default  reduce using rule 26 (exp)
+
+
+State 58
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   30    | IDENTIFIER '=' exp .
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+
+    $default  reduce using rule 30 (exp)
+
+
+State 59
+
+   14 inst: IDENTIFIER '(' arg_list . ')' ';'
+
+    ')'  shift, and go to state 84
+
+
+State 60
+
+   20 arg_list: exp .
+   21         | exp . ',' arg_list
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+    ','              shift, and go to state 85
+
+    $default  reduce using rule 20 (arg_list)
+
+
+State 61
+
+   23 declaration: TYPE IDENTIFIER '=' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 86
+
+
+State 62
+
+   12 inst: TYPE IDENTIFIER '(' . decl_list ')' ';'
+   13     | TYPE IDENTIFIER '(' . arg_list ')' '{' suite_inst RETURN inst '}'
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 87
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    decl_list    go to state 88
+    arg_list     go to state 89
+    declaration  go to state 22
+    exp          go to state 60
+
+
+State 63
+
+   30 exp: IDENTIFIER '=' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 58
+
+
+State 64
+
+   22 declaration: TYPE IDENTIFIER .
+   23            | TYPE IDENTIFIER . '=' exp
+
+    '='  shift, and go to state 61
+
+    $default  reduce using rule 22 (declaration)
+
+
+State 65
+
+    8 inst: WHILE '(' exp . ')' inst
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+    ')'              shift, and go to state 90
+
+
+State 66
+
+    6 inst: PRINT '(' STRING . ',' exp ')' ';'
+
+    ','  shift, and go to state 91
+
+
+State 67
+
+    9 inst: IF '(' exp . ')' inst
+   10     | IF '(' exp . ')' inst ELSE inst
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+    ')'              shift, and go to state 92
+
+
+State 68
+
+    7 inst: PUTCH exp ';' .
+
+    $default  reduce using rule 7 (inst)
+
+
+State 69
+
+   39 exp: '(' exp ')' .
+
+    $default  reduce using rule 39 (exp)
+
+
+State 70
+
+   17 suite_inst: inst suite_inst .
+
+    $default  reduce using rule 17 (suite_inst)
+
+
+State 71
+
+   11 inst: '{' suite_inst '}' .
+
+    $default  reduce using rule 11 (inst)
+
+
+State 72
+
+   28 exp: exp . SHIFTOPERATOR exp
+   28    | exp SHIFTOPERATOR exp .
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    $default  reduce using rule 28 (exp)
+
+
+State 73
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   29    | exp LOGICALOPERATOR exp .
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+
+    $default  reduce using rule 29 (exp)
+
+
+State 74
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   40    | exp IFT exp . ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    ':'              shift, and go to state 93
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+
+
+State 75
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   46    | exp '>' exp .
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR  shift, and go to state 43
+    '+'            shift, and go to state 49
+    '-'            shift, and go to state 50
+    '&'            shift, and go to state 51
+    '|'            shift, and go to state 52
+    '*'            shift, and go to state 53
+    '/'            shift, and go to state 54
+
+    $default  reduce using rule 46 (exp)
+
+
+State 76
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   45    | exp '<' exp .
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR  shift, and go to state 43
+    '+'            shift, and go to state 49
+    '-'            shift, and go to state 50
+    '&'            shift, and go to state 51
+    '|'            shift, and go to state 52
+    '*'            shift, and go to state 53
+    '/'            shift, and go to state 54
+
+    $default  reduce using rule 45 (exp)
+
+
+State 77
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   41    | exp '+' exp .
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR  shift, and go to state 43
+    '&'            shift, and go to state 51
+    '|'            shift, and go to state 52
+    '*'            shift, and go to state 53
+    '/'            shift, and go to state 54
+
+    $default  reduce using rule 41 (exp)
+
+
+State 78
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   42    | exp '-' exp .
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR  shift, and go to state 43
+    '&'            shift, and go to state 51
+    '|'            shift, and go to state 52
+    '*'            shift, and go to state 53
+    '/'            shift, and go to state 54
+
+    $default  reduce using rule 42 (exp)
+
+
+State 79
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   47    | exp '&' exp .
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR  shift, and go to state 43
+    '*'            shift, and go to state 53
+    '/'            shift, and go to state 54
+
+    $default  reduce using rule 47 (exp)
+
+
+State 80
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+   48    | exp '|' exp .
+
+    SHIFTOPERATOR  shift, and go to state 43
+    '*'            shift, and go to state 53
+    '/'            shift, and go to state 54
+
+    $default  reduce using rule 48 (exp)
+
+
+State 81
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   43    | exp '*' exp .
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR  shift, and go to state 43
+
+    $default  reduce using rule 43 (exp)
+
+
+State 82
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   44    | exp '/' exp .
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR  shift, and go to state 43
+
+    $default  reduce using rule 44 (exp)
+
+
+State 83
+
+   15 inst: IDENTIFIER '=' IDENTIFIER '(' . arg_list ')' ';'
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    arg_list     go to state 94
+    declaration  go to state 22
+    exp          go to state 60
+
+
+State 84
+
+   14 inst: IDENTIFIER '(' arg_list ')' . ';'
+
+    ';'  shift, and go to state 95
+
+
+State 85
+
+   21 arg_list: exp ',' . arg_list
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    arg_list     go to state 96
+    declaration  go to state 22
+    exp          go to state 60
+
+
+State 86
+
+   23 declaration: TYPE IDENTIFIER '=' exp .
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+
+    $default  reduce using rule 23 (declaration)
+
+
+State 87
+
+   18 decl_list: TYPE .
+   19          | TYPE . ',' decl_list
+   22 declaration: TYPE . IDENTIFIER
+   23            | TYPE . IDENTIFIER '=' exp
+
+    IDENTIFIER  shift, and go to state 64
+    ','         shift, and go to state 97
+
+    $default  reduce using rule 18 (decl_list)
+
+
+State 88
+
+   12 inst: TYPE IDENTIFIER '(' decl_list . ')' ';'
+
+    ')'  shift, and go to state 98
+
+
+State 89
+
+   13 inst: TYPE IDENTIFIER '(' arg_list . ')' '{' suite_inst RETURN inst '}'
+
+    ')'  shift, and go to state 99
+
+
+State 90
+
+    8 inst: WHILE '(' exp ')' . inst
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 6
+    TYPE         shift, and go to state 7
+    INCOPERATOR  shift, and go to state 8
+    WHILE        shift, and go to state 9
+    PRINT        shift, and go to state 10
+    IF           shift, and go to state 11
+    PUTCH        shift, and go to state 12
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    ';'          shift, and go to state 17
+    '('          shift, and go to state 18
+    '{'          shift, and go to state 19
+    '!'          shift, and go to state 20
+
+    inst         go to state 100
+    declaration  go to state 22
+    exp          go to state 23
+
+
+State 91
+
+    6 inst: PRINT '(' STRING ',' . exp ')' ';'
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 101
+
+
+State 92
+
+    9 inst: IF '(' exp ')' . inst
+   10     | IF '(' exp ')' . inst ELSE inst
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 6
+    TYPE         shift, and go to state 7
+    INCOPERATOR  shift, and go to state 8
+    WHILE        shift, and go to state 9
+    PRINT        shift, and go to state 10
+    IF           shift, and go to state 11
+    PUTCH        shift, and go to state 12
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    ';'          shift, and go to state 17
+    '('          shift, and go to state 18
+    '{'          shift, and go to state 19
+    '!'          shift, and go to state 20
+
+    inst         go to state 102
+    declaration  go to state 22
+    exp          go to state 23
+
+
+State 93
+
+   40 exp: exp IFT exp ':' . exp
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 28
+    TYPE         shift, and go to state 29
+    INCOPERATOR  shift, and go to state 8
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    '('          shift, and go to state 18
+    '!'          shift, and go to state 20
+
+    declaration  go to state 22
+    exp          go to state 103
+
+
+State 94
+
+   15 inst: IDENTIFIER '=' IDENTIFIER '(' arg_list . ')' ';'
+
+    ')'  shift, and go to state 104
+
+
+State 95
+
+   14 inst: IDENTIFIER '(' arg_list ')' ';' .
+
+    $default  reduce using rule 14 (inst)
+
+
+State 96
+
+   21 arg_list: exp ',' arg_list .
+
+    $default  reduce using rule 21 (arg_list)
+
+
+State 97
+
+   19 decl_list: TYPE ',' . decl_list
+
+    TYPE  shift, and go to state 105
+
+    decl_list  go to state 106
+
+
+State 98
+
+   12 inst: TYPE IDENTIFIER '(' decl_list ')' . ';'
+
+    ';'  shift, and go to state 107
+
+
+State 99
+
+   13 inst: TYPE IDENTIFIER '(' arg_list ')' . '{' suite_inst RETURN inst '}'
+
+    '{'  shift, and go to state 108
+
+
+State 100
+
+    8 inst: WHILE '(' exp ')' inst .
+
+    $default  reduce using rule 8 (inst)
+
+
+State 101
+
+    6 inst: PRINT '(' STRING ',' exp . ')' ';'
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR    shift, and go to state 43
+    LOGICALOPERATOR  shift, and go to state 44
+    INCOPERATOR      shift, and go to state 45
+    IFT              shift, and go to state 46
+    '>'              shift, and go to state 47
+    '<'              shift, and go to state 48
+    '+'              shift, and go to state 49
+    '-'              shift, and go to state 50
+    '&'              shift, and go to state 51
+    '|'              shift, and go to state 52
+    '*'              shift, and go to state 53
+    '/'              shift, and go to state 54
+    ')'              shift, and go to state 109
+
+
+State 102
+
+    9 inst: IF '(' exp ')' inst .
+   10     | IF '(' exp ')' inst . ELSE inst
+
+    ELSE  shift, and go to state 110
+
+    $default  reduce using rule 9 (inst)
+
+
+State 103
+
+   28 exp: exp . SHIFTOPERATOR exp
+   29    | exp . LOGICALOPERATOR exp
+   33    | exp . INCOPERATOR
+   40    | exp . IFT exp ':' exp
+   40    | exp IFT exp ':' exp .
+   41    | exp . '+' exp
+   42    | exp . '-' exp
+   43    | exp . '*' exp
+   44    | exp . '/' exp
+   45    | exp . '<' exp
+   46    | exp . '>' exp
+   47    | exp . '&' exp
+   48    | exp . '|' exp
+
+    SHIFTOPERATOR  shift, and go to state 43
+    IFT            shift, and go to state 46
+    '>'            shift, and go to state 47
+    '<'            shift, and go to state 48
+    '+'            shift, and go to state 49
+    '-'            shift, and go to state 50
+    '&'            shift, and go to state 51
+    '|'            shift, and go to state 52
+    '*'            shift, and go to state 53
+    '/'            shift, and go to state 54
+
+    $default  reduce using rule 40 (exp)
+
+
+State 104
+
+   15 inst: IDENTIFIER '=' IDENTIFIER '(' arg_list ')' . ';'
+
+    ';'  shift, and go to state 111
+
+
+State 105
+
+   18 decl_list: TYPE .
+   19          | TYPE . ',' decl_list
+
+    ','  shift, and go to state 97
+
+    $default  reduce using rule 18 (decl_list)
+
+
+State 106
+
+   19 decl_list: TYPE ',' decl_list .
+
+    $default  reduce using rule 19 (decl_list)
+
+
+State 107
+
+   12 inst: TYPE IDENTIFIER '(' decl_list ')' ';' .
+
+    $default  reduce using rule 12 (inst)
+
+
+State 108
+
+   13 inst: TYPE IDENTIFIER '(' arg_list ')' '{' . suite_inst RETURN inst '}'
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 6
+    TYPE         shift, and go to state 7
+    INCOPERATOR  shift, and go to state 8
+    WHILE        shift, and go to state 9
+    PRINT        shift, and go to state 10
+    IF           shift, and go to state 11
+    PUTCH        shift, and go to state 12
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    ';'          shift, and go to state 17
+    '('          shift, and go to state 18
+    '{'          shift, and go to state 19
+    '!'          shift, and go to state 20
+
+    inst         go to state 40
+    suite_inst   go to state 112
+    declaration  go to state 22
+    exp          go to state 23
+
+
+State 109
+
+    6 inst: PRINT '(' STRING ',' exp ')' . ';'
+
+    ';'  shift, and go to state 113
+
+
+State 110
+
+   10 inst: IF '(' exp ')' inst ELSE . inst
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 6
+    TYPE         shift, and go to state 7
+    INCOPERATOR  shift, and go to state 8
+    WHILE        shift, and go to state 9
+    PRINT        shift, and go to state 10
+    IF           shift, and go to state 11
+    PUTCH        shift, and go to state 12
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    ';'          shift, and go to state 17
+    '('          shift, and go to state 18
+    '{'          shift, and go to state 19
+    '!'          shift, and go to state 20
+
+    inst         go to state 114
+    declaration  go to state 22
+    exp          go to state 23
+
+
+State 111
+
+   15 inst: IDENTIFIER '=' IDENTIFIER '(' arg_list ')' ';' .
+
+    $default  reduce using rule 15 (inst)
+
+
+State 112
+
+   13 inst: TYPE IDENTIFIER '(' arg_list ')' '{' suite_inst . RETURN inst '}'
+
+    RETURN  shift, and go to state 115
+
+
+State 113
+
+    6 inst: PRINT '(' STRING ',' exp ')' ';' .
+
+    $default  reduce using rule 6 (inst)
+
+
+State 114
+
+   10 inst: IF '(' exp ')' inst ELSE inst .
+
+    $default  reduce using rule 10 (inst)
+
+
+State 115
+
+   13 inst: TYPE IDENTIFIER '(' arg_list ')' '{' suite_inst RETURN . inst '}'
+
+    INTEGER      shift, and go to state 4
+    FLOAT        shift, and go to state 5
+    IDENTIFIER   shift, and go to state 6
+    TYPE         shift, and go to state 7
+    INCOPERATOR  shift, and go to state 8
+    WHILE        shift, and go to state 9
+    PRINT        shift, and go to state 10
+    IF           shift, and go to state 11
+    PUTCH        shift, and go to state 12
+    '+'          shift, and go to state 13
+    '-'          shift, and go to state 14
+    '&'          shift, and go to state 15
+    '*'          shift, and go to state 16
+    ';'          shift, and go to state 17
+    '('          shift, and go to state 18
+    '{'          shift, and go to state 19
+    '!'          shift, and go to state 20
+
+    inst         go to state 116
+    declaration  go to state 22
+    exp          go to state 23
+
+
+State 116
+
+   13 inst: TYPE IDENTIFIER '(' arg_list ')' '{' suite_inst RETURN inst . '}'
+
+    '}'  shift, and go to state 117
+
+
+State 117
+
+   13 inst: TYPE IDENTIFIER '(' arg_list ')' '{' suite_inst RETURN inst '}' .
+
+    $default  reduce using rule 13 (inst)
