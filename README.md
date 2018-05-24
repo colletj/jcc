@@ -1,5 +1,5 @@
-jcc -- playing around with compiler stuff
-2013
+# jcc -- playing around with compiler stuff
+Old 2013 compiler project 
 
 Use make pre-proc and make mini-compilo to build the compiler.
 
