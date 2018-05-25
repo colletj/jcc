@@ -316,6 +316,7 @@ void sortie(Node *node)
              case 2:
                sortie(node->op.operand[1]);
                print_name_node(node);if(node->op.operand[1]) {fprintf(fp,"->");print_name_node(node->op.operand[1]);fprintf(fp,"\n");}
+               __attribute__((fallthrough));
              case 1:
                sortie(node->op.operand[0]);
                print_name_node(node);if(node->op.operand[0]) {fprintf(fp,"->");print_name_node(node->op.operand[0]);fprintf(fp,"\n");}
