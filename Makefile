@@ -17,7 +17,7 @@ $(OBJECTS): mini-compilo.h
 
 .PHONY: clean
 clean:
-	@rm -f mini-compilo *.o mini-compilo-lexer.c mini-compilo-grammaire.c
+	@rm -f mini-compilo pre-proc *.o mini-compilo-lexer.c mini-compilo-grammaire.c
 	@rm -f y.tab.h y.output
 	@rm -f test.i test.s test.asm data.test bss.test text.test test.s
 	@rm -f test test.dot
